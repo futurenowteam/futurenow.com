@@ -5,6 +5,7 @@ Router.route('/', {
 Router.route('/home');
 
 if (Meteor.isClient) {
+  Meteor.subscribe('all_users');
 
   Template.register.events({
     'submit form': function (event) {
@@ -35,6 +36,9 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
+  Meteor.publish('all_users', function () {
+    return Meteor.users.find({});
+  });
   Meteor.startup(function () {
     Accounts.onCreateUser(function(options, user) {
       user.first_name = options.first_name;
