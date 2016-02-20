@@ -1,3 +1,6 @@
+Router.route('/register');
+Router.route('/login');
+
 if (Meteor.isClient) {
 
   Template.register.events({
