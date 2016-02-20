@@ -1,5 +1,8 @@
 Router.route('/register');
-Router.route('/login');
+Router.route('/', {
+  template: 'login'
+});
+Router.route('/home');
 
 if (Meteor.isClient) {
 
@@ -19,8 +22,16 @@ if (Meteor.isClient) {
         password: password,
         type: type
       });
+      Router.go('home');
     }
   });
+
+  Template.home.helpers({
+    'alumni': function(){
+      return Meteor.users.find( {type: "alumni"});
+
+    }
+  })
 }
 
 if (Meteor.isServer) {

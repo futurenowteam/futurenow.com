@@ -23,3 +23,12 @@
 <template name="login">
     <h2>Login</h2>
 </template>
+
+<template name="home">
+    <h2>Home</h2>
+    <ul>
+      {{#each alumni}}
+        <li>{{first_name}} {{last_name}}</li>
+      {{/each}}
+    </ul>
+</template>
