@@ -1,4 +1,5 @@
 Router.route('/register');
+Router.route('/login');
 Router.route('/', {
   template: 'login'
 });
@@ -30,9 +31,26 @@ if (Meteor.isClient) {
   Template.home.helpers({
     'alumni': function(){
       return Meteor.users.find( {type: "alumni"});
-
     }
-  })
+  });
+
+  Template.navigation.events({
+    'click .logout': function(event){
+      event.preventDefault();
+      Meteor.logout();
+      Router.go('login');
+    }
+  });
+
+  Template.login.events({
+    'submit form': function(event){
+      event.preventDefault();
+      var email = $('[name=email]').val();
+      var password = $('[name=password]').val();
+      Meteor.loginWithPassword(email, password);
+      Router.go('home');
+    }
+  });
 }
 
 if (Meteor.isServer) {
