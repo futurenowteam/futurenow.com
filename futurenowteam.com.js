@@ -31,9 +31,15 @@ if (Meteor.isClient) {
   Template.home.helpers({
     'alumni': function(){
       return Meteor.users.find( {type: "alumni"});
-
     }
-  })
+  });
+
+  Template.navigation.events({
+    'click .logout': function(event){
+      event.preventDefault();
+      Meteor.logout();
+    }
+  });
 }
 
 if (Meteor.isServer) {

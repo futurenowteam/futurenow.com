@@ -3,7 +3,7 @@
 </head>
 
 <body>
-  <h1>Your future starts now</h1>
+  <h1>Your Future Starts Now</h1>
  {{> navigation}}
 
 </body>
@@ -37,7 +37,11 @@
 <template name="navigation">
   <ul>
       <li><a href="{{pathFor route='home'}}">Home</a></li>
-      <li><a href="{{pathFor route='register'}}">Register</a></li>
-      <li><a href="{{pathFor route='login'}}">Login</a></li>
+      {{#if currentUser}}
+        <li><a href="#" class="logout">Logout</a></li>
+      {{else}}
+        <li><a href="{{pathFor route='register'}}">Register</a></li>
+        <li><a href="{{pathFor route='login'}}">Login</a></li>
+      {{/if}}
   </ul>
 </template>
