@@ -4,6 +4,7 @@ Router.route('/', {
   template: 'login'
 });
 Router.route('/home');
+Router.route('/profile');
 
 if (Meteor.isClient) {
   Meteor.subscribe('all_users');
@@ -16,13 +17,15 @@ if (Meteor.isClient) {
       var email = $('[name=email]').val();
       var password = $('[name=password]').val();
       var type = $('input:checked').val();
+      var grad_year = $('[name=grad_year]').val();
 
       Accounts.createUser({
         first_name: first_name,
         last_name: last_name,
         email: email,
         password: password,
-        type: type
+        type: type,
+        grad_year: grad_year,
       });
       Router.go('home');
     }
@@ -34,11 +37,29 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.profile.helpers({
+    'current_user': function(){
+      console.log(Meteor.user());
+      return Meteor.user();
+    }
+  });
+
+  // Capitalize first letter
+  UI.registerHelper('capitalizeString', function(context, options) {
+    if (context) {
+      return context.charAt(0).toUpperCase() + context.slice(1);
+    }
+  });
+
   Template.navigation.events({
     'click .logout': function(event){
       event.preventDefault();
       Meteor.logout();
       Router.go('login');
+    },
+    'click .profile': function(event){
+      event.preventDefault();
+      Router.go('profile');
     }
   });
 
@@ -63,6 +84,7 @@ if (Meteor.isServer) {
       user.last_name = options.last_name;
       user.type = options.type;
       user.is_admin = false;
+      user.grad_year = options.grad_year;
       return user;
 
     })

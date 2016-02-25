@@ -16,7 +16,9 @@
         <p>Email: <input type="email" name="email"></p>
         <p>Password: <input type="password" name="password"></p>
         <p>Account Type: <input type="radio" name="type" value="student"> Student
-          <input type="radio" name="type" value="alumni"> Alumni </p>
+          <input type="radio" name="type" value="alumni"> Alumni
+        </p>
+        <p>Graduation Year: <input type="text" name="grad_year"></p>
         <p><input type="submit" value="Register"></p>
     </form>
 </template>
@@ -31,6 +33,7 @@
 </template>
 
 <template name="home">
+    {{#if currentUser}}
     <h2>Home</h2>
     <a href="#" class="logout">Logout</a>
     <ul>
@@ -38,16 +41,27 @@
         <li>{{first_name}} {{last_name}}</li>
       {{/each}}
     </ul>
+    {{/if}}
+</template>
+
+<template name="profile">
+  <h2>Profile</h2>
+  {{current_user.first_name}} {{current_user.last_name}}
+  <br>
+  {{capitalizeString current_user.type true}}
+  <br>
+  {{current_user.grad_year}}
 </template>
 
 <template name="navigation">
       {{#if currentUser}}
+
       <nav id="navigation" class="navbar navbar-default navbar-fixed-bottom">
         <div class="container">
           <div class="btn-group btn-group-justified" role="group" aria-label="...">
             <a class="btn btn-default" href="{{pathFor route='home'}}"><i class="glyphicon glyphicon-home"></i></a>
             <a class="btn btn-default" href="{{pathFor route='messages'}}"><i class="glyphicon glyphicon-envelope"></i></a>
-            <a class="btn btn-default" href="{{pathFor route='profile'}}"><i class="glyphicon glyphicon-user"></i></a>
+            <a class="profile btn btn-default" href="{{pathFor route='profile'}}"><i class="glyphicon glyphicon-user"></i></a>
           </div>
         </div>
       </nav>
