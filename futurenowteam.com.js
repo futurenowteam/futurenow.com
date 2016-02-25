@@ -4,6 +4,7 @@ Router.route('/', {
   template: 'login'
 });
 Router.route('/home');
+Router.route('/profile');
 
 if (Meteor.isClient) {
   Meteor.subscribe('all_users');
@@ -34,11 +35,29 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.profile.helpers({
+    'current_user': function(){
+      console.log(Meteor.user());
+      return Meteor.user();
+    }
+  });
+
+  // Capitalize first letter
+  UI.registerHelper('capitalizeString', function(context, options) {
+    if (context) {
+      return context.charAt(0).toUpperCase() + context.slice(1);
+    }
+  });
+
   Template.navigation.events({
     'click .logout': function(event){
       event.preventDefault();
       Meteor.logout();
       Router.go('login');
+    },
+    'click .profile': function(event){
+      event.preventDefault();
+      Router.go('profile');
     }
   });
 

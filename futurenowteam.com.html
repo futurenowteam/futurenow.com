@@ -31,12 +31,21 @@
 </template>
 
 <template name="home">
+    {{#if currentUser}}
     <h2>Home</h2>
     <ul>
       {{#each alumni}}
         <li>{{first_name}} {{last_name}}</li>
       {{/each}}
     </ul>
+    {{/if}}
+</template>
+
+<template name="profile">
+  <h2>Profile</h2>
+  {{current_user.first_name}} {{current_user.last_name}}
+  <br>
+  {{capitalizeString current_user.type true}}
 </template>
 
 <template name="navigation">
@@ -44,6 +53,7 @@
       <li><a href="{{pathFor route='home'}}">Home</a></li>
       {{#if currentUser}}
         <li><a href="#" class="logout">Logout</a></li>
+        <li><a href="#" class="profile">Profile</a></li>
       {{else}}
         <li><a href="{{pathFor route='register'}}">Register</a></li>
         <li><a href="{{pathFor route='login'}}">Login</a></li>
