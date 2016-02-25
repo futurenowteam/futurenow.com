@@ -17,13 +17,15 @@ if (Meteor.isClient) {
       var email = $('[name=email]').val();
       var password = $('[name=password]').val();
       var type = $('input:checked').val();
+      var grad_year = $('[name=grad_year]').val();
 
       Accounts.createUser({
         first_name: first_name,
         last_name: last_name,
         email: email,
         password: password,
-        type: type
+        type: type,
+        grad_year: grad_year,
       });
       Router.go('home');
     }
@@ -82,6 +84,7 @@ if (Meteor.isServer) {
       user.last_name = options.last_name;
       user.type = options.type;
       user.is_admin = false;
+      user.grad_year = options.grad_year;
       return user;
 
     })
