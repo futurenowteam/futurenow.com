@@ -42,28 +42,29 @@ if (Meteor.isClient) {
       return Meteor.user();
     },
     'grad_year_string': function(){
-      var current_user = Meteor.user();
-      var grad_year = current_user.grad_year;
-      var current_year = moment().month() >= 7 ? moment().year() + 1 : moment().year();
-      var grad_year_string;
+      if (Meteor.user()) {
+        var current_user = Meteor.user();
+        var grad_year = current_user.grad_year;
+        var current_year = moment().month() >= 7 ? moment().year() + 1 : moment().year();
+        var grad_year_string;
 
-      if (grad_year < current_year) {
-        grad_year_string = 'Graduated in '+ grad_year;
-      } else if (grad_year == current_year) {
-        grad_year_string = "Secondaire 5";
-      } else if (current_year + 1 == grad_year) {
-        grad_year_string = "Secondaire 4";
-      } else if (current_year + 2 == grad_year) {
-        grad_year_string = "Secondaire 3";
-      } else if (current_year + 3 == grad_year) {
-        grad_year_string = "Secondaire 2";
-      } else if (current_year + 4 == grad_year) {
-        grad_year_string = "Secondaire 1";
-      } else {
-        grad_year_string = "Primary";
+        if (grad_year < current_year) {
+          grad_year_string = 'Graduated in '+ grad_year;
+        } else if (grad_year == current_year) {
+          grad_year_string = "Secondaire 5";
+        } else if (current_year + 1 == grad_year) {
+          grad_year_string = "Secondaire 4";
+        } else if (current_year + 2 == grad_year) {
+          grad_year_string = "Secondaire 3";
+        } else if (current_year + 3 == grad_year) {
+          grad_year_string = "Secondaire 2";
+        } else if (current_year + 4 == grad_year) {
+          grad_year_string = "Secondaire 1";
+        } else {
+          grad_year_string = "Primary";
+        }
+        return grad_year_string;
       }
-
-      return grad_year_string;
     }
   });
 

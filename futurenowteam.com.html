@@ -1,4 +1,5 @@
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>futurenowteam.com</title>
 </head>
 
@@ -44,12 +45,10 @@
 </template>
 
 <template name="profile">
-  <h2>Profile</h2>
-  {{current_user.first_name}} {{current_user.last_name}}
-  <br>
-  {{capitalizeString current_user.type true}}
-  <br>
-  {{grad_year_string}}
+  <div class="basic-info">
+    <h2>{{current_user.first_name}} {{current_user.last_name}}</h2>
+    {{capitalizeString current_user.type true}}, {{grad_year_string}}
+  </div>
 </template>
 
 <template name="navigation">
