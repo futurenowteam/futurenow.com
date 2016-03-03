@@ -35,7 +35,6 @@
 <template name="home">
     {{#if currentUser}}
     <h2>Home</h2>
-    <a href="#" class="logout">Logout</a>
     <ul>
       {{#each alumni}}
         <li>{{first_name}} {{last_name}}</li>
@@ -50,24 +49,23 @@
   <br>
   {{capitalizeString current_user.type true}}
   <br>
-  {{current_user.grad_year}}
+  {{grad_year_string}}
 </template>
 
 <template name="navigation">
-      {{#if currentUser}}
-
       <nav id="navigation" class="navbar navbar-default navbar-fixed-bottom">
         <div class="container">
           <div class="btn-group btn-group-justified" role="group" aria-label="...">
-            <a class="btn btn-default" href="{{pathFor route='home'}}"><i class="glyphicon glyphicon-home"></i></a>
-            <a class="btn btn-default" href="{{pathFor route='messages'}}"><i class="glyphicon glyphicon-envelope"></i></a>
-            <a class="profile btn btn-default" href="{{pathFor route='profile'}}"><i class="glyphicon glyphicon-user"></i></a>
+            {{#if currentUser}}
+              <a class="btn btn-default" href="{{pathFor route='home'}}"><i class="glyphicon glyphicon-home"></i></a>
+              <a class="btn btn-default" href="#"><i class="glyphicon glyphicon-envelope"></i></a>
+              <a class="profile btn btn-default" href="{{pathFor route='profile'}}"><i class="glyphicon glyphicon-user"></i></a>
+              <a class="btn btn-default logout" href="#"><i class="glyphicon glyphicon-log-out"></i></a>
+            {{else}}
+              <a class="btn btn-default" href="{{pathFor route='register'}}"><i class="glyphicon glyphicon-education"></i> Register</a>
+              <a class="btn btn-default" href="{{pathFor route='login'}}"><i class="glyphicon glyphicon-log-in"></i> Login</a>
+            {{/if}}
           </div>
         </div>
       </nav>
-
-      {{else}}
-        <li><a href="{{pathFor route='register'}}">Register</a></li>
-        <li><a href="{{pathFor route='login'}}">Login</a></li>
-      {{/if}}
 </template>
