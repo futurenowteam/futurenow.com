@@ -12,6 +12,43 @@ body {
   background-color: #A5D6CD;
 }
 
+.main-wrapper {
+  padding-bottom: 50px;
+}
+
+.clear-fix {
+  clear: both;
+}
 .basic-info {
   text-align: center;
+}
+.home-grid {
+  list-style-type: none;
+  padding: 0;
+  text-align: left;
+  width: 90%;
+  margin: 0 5%;
+}
+
+.half-space {
+  display: block;
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+.home-grid-photo {
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+}
+
+.grid-block {
+  text-align: center;
+}
+
+.profile-name {
+  border: 2px solid #50af9d;
+  border-radius: 0 0 5px 5px;
+  padding: 5px;
+  background-color: white;
 }
