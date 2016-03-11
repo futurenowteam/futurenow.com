@@ -4,9 +4,7 @@
 </head>
 
 <body>
-  <h1>Your Future Starts Now</h1>
  {{> navigation}}
-
 </body>
 
 <template name="register">
@@ -34,26 +32,42 @@
 </template>
 
 <template name="home">
+  <div class="main-wrapper">
     {{#if currentUser}}
-    <h2>Home</h2>
-    <ul>
+    <div class="grid-block">
+    <h2>Technology</h2>
+    <ul class="home-grid">
       {{#each alumni}}
-        <li><a href="{{root_url}}users/{{_id}}">{{first_name}} {{last_name}}</a></li>
+        <a href="{{root_url}}users/{{_id}}">
+          <li class="half-space">
+            <div class="name-picture">
+          <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="home-grid-photo" >
+            <div class="profile-name">{{first_name}} {{last_name}}</div>
+          </div>
+          </li>
+        </a>
       {{/each}}
     </ul>
+    <div class="clear-fix">
+    </div>
+  </div>
     {{/if}}
+  </div>
 </template>
 
-<template name="my_profile">
+<template name="myprofile">
   <div class="basic-info">
+      <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="img-rounded center"  height="140" width="140">
     <h2>{{current_user.first_name}} {{current_user.last_name}}</h2>
-    {{capitalizeString current_user.type true}}, {{grad_year_string}}
+    {{capitalizeString current_user.type true}}, {{getGradYear current_user.grad_year true}}
   </div>
 </template>
 
 <template name="profile">
   <div class="basic-info">
+    <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="img-rounded center"  height="140" width="140">
     <h2>{{user.first_name}} {{user.last_name}}</h2>
+    {{capitalizeString user.type true}}, {{getGradYear user.grad_year true}}
   </div>
 </template>
 
@@ -64,7 +78,7 @@
             {{#if currentUser}}
               <a class="btn btn-default" href="{{pathFor route='home'}}"><i class="glyphicon glyphicon-home"></i></a>
               <a class="btn btn-default" href="#"><i class="glyphicon glyphicon-envelope"></i></a>
-              <a class="profile btn btn-default" href="{{pathFor route='profile'}}"><i class="glyphicon glyphicon-user"></i></a>
+              <a class="btn btn-default" href="{{pathFor route='myprofile'}}"><i class="glyphicon glyphicon-user"></i></a>
               <a class="btn btn-default logout" href="#"><i class="glyphicon glyphicon-log-out"></i></a>
             {{else}}
               <a class="btn btn-default" href="{{pathFor route='register'}}"><i class="glyphicon glyphicon-education"></i> Register</a>
