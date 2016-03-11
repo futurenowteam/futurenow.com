@@ -4,7 +4,17 @@ Router.route('/', {
   template: 'login'
 });
 Router.route('/home');
-Router.route('/profile');
+Router.route('/my_profile');
+Router.route('profile', {
+  path: '/users/:_id',
+  data: function() {
+    var user = Meteor.users.findOne(this.params._id);
+    if (typeof user !== undefined) {
+      Router.go(getProfileUrlById(user._id), {replaceState: true});
+      return user;
+    }
+  }
+});
 
 if (Meteor.isClient) {
   Meteor.subscribe('all_users');
@@ -34,10 +44,23 @@ if (Meteor.isClient) {
   Template.home.helpers({
     'alumni': function(){
       return Meteor.users.find( {type: "alumni"});
+    },
+    'root_url': function(){
+      return Meteor.absoluteUrl();
     }
   });
 
   Template.profile.helpers({
+    'user': function(){
+      return this;
+    }
+  });
+
+  getProfileUrlById = function(id) {
+    return Meteor.absoluteUrl() + 'users/' + id;
+  };
+
+  Template.my_profile.helpers({
     'current_user': function(){
       return Meteor.user();
     },
@@ -102,6 +125,7 @@ if (Meteor.isServer) {
   Meteor.publish('all_users', function () {
     return Meteor.users.find({});
   });
+
   Meteor.startup(function () {
     Accounts.onCreateUser(function(options, user) {
       user.first_name = options.first_name;
@@ -110,8 +134,6 @@ if (Meteor.isServer) {
       user.is_admin = false;
       user.grad_year = options.grad_year;
       return user;
-
-    })
-    // code to run on server at startup
+    });
   });
 }

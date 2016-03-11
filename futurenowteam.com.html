@@ -38,16 +38,22 @@
     <h2>Home</h2>
     <ul>
       {{#each alumni}}
-        <li>{{first_name}} {{last_name}}</li>
+        <li><a href="{{root_url}}users/{{_id}}">{{first_name}} {{last_name}}</a></li>
       {{/each}}
     </ul>
     {{/if}}
 </template>
 
-<template name="profile">
+<template name="my_profile">
   <div class="basic-info">
     <h2>{{current_user.first_name}} {{current_user.last_name}}</h2>
     {{capitalizeString current_user.type true}}, {{grad_year_string}}
+  </div>
+</template>
+
+<template name="profile">
+  <div class="basic-info">
+    <h2>{{user.first_name}} {{user.last_name}}</h2>
   </div>
 </template>
 
