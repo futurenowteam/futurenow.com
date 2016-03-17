@@ -26,8 +26,9 @@ if (Meteor.isClient) {
       var last_name = $('[name=last_name]').val();
       var email = $('[name=email]').val();
       var password = $('[name=password]').val();
-      var type = $('input:checked').val();
+      var type = $('[name=type]:checked').val();
       var grad_year = $('[name=grad_year]').val();
+      var category = $('[name=category]:checked').val();
 
       Accounts.createUser({
         first_name: first_name,
@@ -36,14 +37,27 @@ if (Meteor.isClient) {
         password: password,
         type: type,
         grad_year: grad_year,
+        category: category,
       });
       Router.go('home');
     }
   });
-
+  Template.home.events({
+    "change select": function (event) {
+      console.log(event.target)
+      var selected_category = event.target.value;
+      Session.set("category", selected_category)
+    }
+  })
+  Template.home.onCreated(function () {
+    Session.set("category", "technology")
+  });
   Template.home.helpers({
+    "selected_category": function(){
+      return Session.get('category')
+    },
     'alumni': function(){
-      return Meteor.users.find( {type: "alumni"});
+      return Meteor.users.find( {type: "alumni", category: Session.get("category")});
     },
     'root_url': function(){
       return Meteor.absoluteUrl();
@@ -128,6 +142,7 @@ if (Meteor.isServer) {
       user.type = options.type;
       user.is_admin = false;
       user.grad_year = options.grad_year;
+      user.category = options.category;
       return user;
     });
   });

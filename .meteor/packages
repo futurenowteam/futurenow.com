@@ -22,3 +22,4 @@ accounts-ui
 iron:router
 twbs:bootstrap
 momentjs:moment
+chriswessels:hammer
