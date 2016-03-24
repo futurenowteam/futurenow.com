@@ -17,11 +17,12 @@
         <p>Account Type: <input type="radio" name="type" value="student"> Student
           <input type="radio" name="type" value="alumni"> Alumni</p>
         <p>Graduation Year: <input type="text" name="grad_year"></p>
-        <p>Category:
-          <input type="radio" name="category" value="technology"> Technology
-          <input type="radio" name="category" value="arts"> Arts
-          <input type="radio" name="category" value="health"> Health
-          <input type="radio" name="category" value="administration"> Administration</p>
+        <p class="industry is-hidden">Industry:
+          <input type="radio" name="industry" value="technology"> Technology
+          <input type="radio" name="industry" value="arts"> Arts
+          <input type="radio" name="industry" value="health"> Health
+          <input type="radio" name="industry" value="administration"> Administration
+        </p>
         <p><input type="submit" value="Register"></p>
     </form>
 </template>
@@ -39,7 +40,7 @@
   <div class="main-wrapper">
     {{#if currentUser}}
     <div class="grid-block">
-    <h2>{{selected_category}}
+    <h2>{{selected_industry}}
     </h2>
     <ul class="home-grid">
       {{#each alumni}}

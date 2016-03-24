@@ -20,6 +20,13 @@ if (Meteor.isClient) {
   Meteor.subscribe('all_users');
 
   Template.register.events({
+    'click input[name="type"]': function (event) {
+      if (event.target.value == "alumni") {
+        $('.industry').removeClass('is-hidden');
+      } else {
+        $('.industry').addClass('is-hidden');
+      }
+    },
     'submit form': function (event) {
       event.preventDefault();
       var first_name = $('[name=first_name]').val();
@@ -28,7 +35,7 @@ if (Meteor.isClient) {
       var password = $('[name=password]').val();
       var type = $('[name=type]:checked').val();
       var grad_year = $('[name=grad_year]').val();
-      var category = $('[name=category]:checked').val();
+      var industry = $('[name=industry]:checked').val();
 
       Accounts.createUser({
         first_name: first_name,
@@ -37,27 +44,26 @@ if (Meteor.isClient) {
         password: password,
         type: type,
         grad_year: grad_year,
-        category: category,
+        industry: industry,
       });
       Router.go('home');
     }
   });
   Template.home.events({
     "change select": function (event) {
-      console.log(event.target)
-      var selected_category = event.target.value;
-      Session.set("category", selected_category)
+      var selected_industry = event.target.value;
+      Session.set("industry", selected_industry)
     }
   })
   Template.home.onCreated(function () {
-    Session.set("category", "technology")
+    Session.set("industry", "technology")
   });
   Template.home.helpers({
-    "selected_category": function(){
-      return Session.get('category')
+    "selected_industry": function(){
+      return Session.get('industry')
     },
     'alumni': function(){
-      return Meteor.users.find( {type: "alumni", category: Session.get("category")});
+      return Meteor.users.find( {type: "alumni", industry: Session.get("industry")});
     },
     'root_url': function(){
       return Meteor.absoluteUrl();
@@ -142,7 +148,7 @@ if (Meteor.isServer) {
       user.type = options.type;
       user.is_admin = false;
       user.grad_year = options.grad_year;
-      user.category = options.category;
+      user.industry = options.industry;
       return user;
     });
   });

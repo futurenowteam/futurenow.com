@@ -52,3 +52,7 @@ body {
   padding: 5px;
   background-color: white;
 }
+
+.is-hidden {
+  display: none;
+}
