@@ -62,6 +62,14 @@ if (Meteor.isClient) {
     "selected_industry": function(){
       return Session.get('industry')
     },
+    hammerInitOptions: {
+      velocity: 0.3
+    },
+    templateGestures: {
+      'swipe body': function (event, templateInstance){
+        console.log('test test');
+      }
+    },
     'alumni': function(){
       return Meteor.users.find( {type: "alumni", industry: Session.get("industry")});
     },

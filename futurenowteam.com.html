@@ -37,28 +37,35 @@
 </template>
 
 <template name="home">
-  <div class="main-wrapper">
-    {{#if currentUser}}
-    <div class="grid-block">
-    <h2>{{selected_industry}}
-    </h2>
-    <ul class="home-grid">
-      {{#each alumni}}
-        <a href="{{root_url}}users/{{_id}}">
-          <li class="half-space">
-            <div class="name-picture">
-          <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="home-grid-photo" >
-            <div class="profile-name">{{first_name}} {{last_name}}</div>
-          </div>
-          </li>
-        </a>
-      {{/each}}
-    </ul>
-    <div class="clear-fix">
+  {{#HammerTouchArea initOptions=hammerInitOptions gestureMap=templateGestures}}
+    <div class="main-wrapper">
+      {{#if currentUser}}
+      <div class="grid-block">
+      <h2>{{selected_industry}}</h2>
+      <select>
+        <option value="technology">Technology</option>
+        <option value="arts">Arts</option>
+        <option value="health">Health</option>
+        <option value="administration">Administration</option>
+      </select>
+      <ul class="home-grid">
+        {{#each alumni}}
+          <a href="{{root_url}}users/{{_id}}">
+            <li class="half-space">
+              <div class="name-picture">
+            <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="home-grid-photo" >
+              <div class="profile-name">{{first_name}} {{last_name}}</div>
+            </div>
+            </li>
+          </a>
+        {{/each}}
+      </ul>
+      <div class="clear-fix">
+      </div>
     </div>
-  </div>
-    {{/if}}
-  </div>
+      {{/if}}
+    </div>
+  {{/HammerTouchArea}}
 </template>
 
 <template name="myprofile">
