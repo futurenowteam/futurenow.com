@@ -53,6 +53,15 @@ if (Meteor.isClient) {
     "change select": function (event) {
       var selected_industry = event.target.value;
       Session.set("industry", selected_industry)
+    },
+    "click .chevron-container": function (event) {
+      var $chevron_container = $(event.target);
+      var direction = $chevron_container.hasClass("chevron-container-left") ? "left" : "right";
+      var industries = ['technology','arts','health','administration'];
+      var current_industry = Session.get("industry");
+      var current_industry_index = industries.indexOf(current_industry);
+      var new_index = direction == "right" ? current_industry_index + 1 : current_industry_index - 1;
+      Session.set("industry", industries[new_index]);
     }
   })
   Template.home.onCreated(function () {

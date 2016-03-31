@@ -14,7 +14,6 @@ body {
 
 .main-wrapper {
   padding-bottom: 50px;
-  height: 100vh;
 }
 
 .clear-fix {
@@ -27,8 +26,7 @@ body {
   list-style-type: none;
   padding: 0;
   text-align: left;
-  width: 90%;
-  margin: 0 5%;
+  width: 100%;
 }
 
 .half-space {
@@ -45,6 +43,33 @@ body {
 
 .grid-block {
   text-align: center;
+  padding: 0 60px;
+}
+
+.chevron-container-left, .chevron-container-right {
+  position: fixed;
+  width: 60px;
+  text-align: center;
+  height: 100%;
+  z-index: 1;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.chevron-button {
+  position: absolute;
+  top: 50%;
+  pointer-events: none;
+  text-align: center;
+  width: 60px;
+}
+
+.chevron-container-left {
+  left: 0;
+}
+
+.chevron-container-right {
+  right: 0;
 }
 
 .profile-name {
