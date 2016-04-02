@@ -57,7 +57,7 @@ if (Meteor.isClient) {
     "click .chevron-container": function (event) {
       var $chevron_container = $(event.target);
       var direction = $chevron_container.hasClass("chevron-container-left") ? "left" : "right";
-      var industries = ['technology','arts','health','administration'];
+      var industries = ['Technology and Engineering','Arts','Health and Science','Administration','Politics and Communication','Law','Education','Literature','Others' ];
       var current_industry = Session.get("industry");
       var current_industry_index = industries.indexOf(current_industry);
       var new_index = direction == "right" ? current_industry_index + 1 : current_industry_index - 1;
@@ -65,7 +65,7 @@ if (Meteor.isClient) {
     }
   })
   Template.home.onCreated(function () {
-    Session.set("industry", "technology")
+    Session.set("industry", "Technology and Engineering")
   });
   Template.home.helpers({
     "selected_industry": function(){
