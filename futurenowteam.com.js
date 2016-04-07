@@ -60,7 +60,20 @@ if (Meteor.isClient) {
       var industries = ['Technology and Engineering','Arts','Health and Science','Administration','Politics and Communication','Law','Education','Literature','Others' ];
       var current_industry = Session.get("industry");
       var current_industry_index = industries.indexOf(current_industry);
-      var new_index = direction == "right" ? current_industry_index + 1 : current_industry_index - 1;
+      var industries_number = industries.length;
+      console.log(current_industry_index, industries_number, direction)
+      var new_index;
+      if (current_industry_index + 1 >= industries_number && direction === "right") {
+        console.log("direction right")
+        new_index = 0;
+      } else if (current_industry_index == 0 && direction === "left") {
+        new_index = industries.length - 1;
+        console.log("direction left")
+      } else {
+        new_index = direction == "right" ? current_industry_index + 1 : current_industry_index - 1;
+      }
+      console.log(new_index)
+
       Session.set("industry", industries[new_index]);
     }
   })
