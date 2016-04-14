@@ -8,8 +8,8 @@ Router.route('/myprofile');
 Router.route('profile', {
   path: '/users/:_id',
   data: function() {
-    var user = Meteor.users.findOne(this.params._id);
-    if (typeof user !== undefined) {
+    var user = Meteor.users.findOne({ _id: this.params._id});
+    if (typeof user !== "undefined") {
       Router.go(Meteor.absoluteUrl()+'users/'+user._id, {replaceState: true});
       return user;
     }
