@@ -16,6 +16,7 @@ Router.route('profile', {
   }
 });
 
+
 if (Meteor.isClient) {
   Meteor.subscribe('all_users');
 
@@ -102,8 +103,22 @@ if (Meteor.isClient) {
 
   Template.profile.helpers({
     'user': function(){
+      console.log(this);
       return this;
+    },
+    'email': function(){
+      return this.emails[0].address;
+    },
+    'starters': function(){
+      console.log(Template.currentData())
+      return [
+        {starter: "Hi, how's it going?", email: Template.currentData().emails[0].address},
+        {starter: "Yo", email: Template.currentData().emails[0].address}
+      ]
     }
+  });
+  Template.registerHelper('sanitize',function(str){
+    return str.replace(" ", "%20")
   });
 
   Template.myprofile.helpers({

@@ -109,6 +109,14 @@
       <br>
       Industry: {{user.industry}}
     {{/if}}
+    <br> <br>
+    <h4> Conversation Starters </h4>
+    <ul>
+      {{#each starters}}
+          <li><a href="mailto:{{this.email}}?subject=hi%20josh&body={{sanitize this.starter}}">{{this.starter}}</a></li>
+        {{/each}}
+    </ul>
+
 
   </div>
 </template>
