@@ -149,8 +149,11 @@ if (Meteor.isClient) {
       var direction = $chevron.hasClass("chevron-container-left") ? "left" : "right";
       var starters = [
         "Hi, how's it going?",
-        "Yo",
-        "hey there"
+        "Hello, I would really like to talk to you because you seem really cool.",
+        "Hi, I would appreciate if you took the time to answer some questions about your ",
+        "Hello, I am really inspired by your work history and i would like to learn more.",
+        "Hi, I think you would have some interesting stories about our school that I would really like to hear about.",
+        "Hello"
       ];
 
       var current_starter = Session.get("starter");
