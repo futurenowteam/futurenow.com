@@ -30,12 +30,15 @@
           <input type="radio" name="industry" value="Literature"> Literature<br>
           <input type="radio" name="industry" value="Services"> Services<br>
           <input type="radio" name="industry" value="Others"> Others
-        <br>
+          <br>
+          Cegep: <input type="text" name="cegep"><br>
+          Cegep program: <input type="text" name="cegep_program"><br>
+          University: <input type="text" name="university"><br>
+          University program: <input type="text" name="university_program"><br>
+          Past jobs: <textarea name="past_jobs"></textarea><br>
+          Current job: <input type="text" name="job"><br>
+          Best memory at your high school: <textarea name="best_memory"></textarea><br>
 
-        Cegep: <input type="text" name="cegep"><br>
-        Cegep program: <input type="text" name="cegep_program"><br>
-        University: <input type="text" name="university"><br>
-        University program: <input type="text" name="university_program"><br>
 
         </p>
         <p><input type="submit" value="Register"></p>
@@ -119,6 +122,34 @@
     {{#if user.industry}}
       <br>
       Industry: {{user.industry}}
+    {{/if}}
+    {{#if user.cegep}}
+      <br>
+      Cegep: {{user.cegep}}
+    {{/if}}
+    {{#if user.cegep_program}}
+      <br>
+      Cegep program: {{user.cegep_program}}
+    {{/if}}
+    {{#if user.university}}
+      <br>
+      University: {{user.university}}
+    {{/if}}
+    {{#if user.university_program}}
+      <br>
+      University program: {{user.university_program}}
+    {{/if}}
+    {{#if user.job}}
+      <br>
+      Current job: {{user.job}}
+    {{/if}}
+    {{#if user.past_jobs}}
+      <br>
+      Past jobs: {{user.past_jobs}}
+    {{/if}}
+    {{#if user.best_memory}}
+      <br>
+      Best memory at your high school: {{user.best_memory}}
     {{/if}}
     <br>
     <a href="http://www.psnm.qc.ca/" target="_blank" class="donate"> donate here </a>

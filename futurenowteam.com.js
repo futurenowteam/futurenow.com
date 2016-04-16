@@ -41,6 +41,9 @@ if (Meteor.isClient) {
       var cegep_program = $('[name=cegep_program]').val();
       var university = $('[name=university]').val();
       var university_program = $('[name=university_program]').val();
+      var past_jobs = $('[name=past_jobs]').val();
+      var job = $('[name=job]').val();
+      var best_memory = $('[name=best_memory]').val();
 
       Accounts.createUser({
         first_name: first_name,
@@ -53,7 +56,10 @@ if (Meteor.isClient) {
         cegep: cegep,
         cegep_program: cegep_program,
         university: university,
-        university_program: university_program
+        university_program: university_program,
+        past_jobs: past_jobs,
+        job: job,
+        best_memory: best_memory
       }, function(error){
         console.log(error);
         if ( !error ) return Router.go('home');
@@ -213,6 +219,7 @@ if (Meteor.isServer) {
       }
       if ( options.type == "alumni" && !options.industry){
         throw new Meteor.Error("Please choose an industry")
+      }
 
       user.first_name = options.first_name;
       user.last_name = options.last_name;
@@ -224,6 +231,9 @@ if (Meteor.isServer) {
       user.cegep_program = options.cegep_program;
       user.university = options.university;
       user.university_program = options.university_program;
+      user.job = options.job;
+      user.past_jobs = options.past_jobs;
+      user.best_memory = options.best_memory;
       return user;
     });
   });
