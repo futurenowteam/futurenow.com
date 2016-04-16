@@ -8,13 +8,14 @@ Router.route('/myprofile');
 Router.route('profile', {
   path: '/users/:_id',
   data: function() {
-    var user = Meteor.users.findOne(this.params._id);
-    if (typeof user !== undefined) {
+    var user = Meteor.users.findOne({ _id: this.params._id});
+    if (typeof user !== "undefined") {
       Router.go(Meteor.absoluteUrl()+'users/'+user._id, {replaceState: true});
       return user;
     }
   }
 });
+
 
 if (Meteor.isClient) {
   Meteor.subscribe('all_users');
@@ -68,8 +69,19 @@ if (Meteor.isClient) {
       var industries = ['Technology and Engineering','Arts','Health and Science','Administration','Politics and Communication','Law','Education','Literature','Services','Others'];
       var current_industry = Session.get("industry");
       var current_industry_index = industries.indexOf(current_industry);
-      var new_index = direction == "right" ? current_industry_index + 1 : current_industry_index - 1;
-      $('select').val(industries[new_index]);
+      var industries_number = industries.length;
+      console.log(current_industry_index, industries_number, direction)
+      var new_index;
+      if (current_industry_index + 1 >= industries_number && direction === "right") {
+        console.log("direction right")
+        new_index = 0;
+      } else if (current_industry_index == 0 && direction === "left") {
+        new_index = industries.length - 1;
+        console.log("direction left")
+      } else {
+        new_index = direction == "right" ? current_industry_index + 1 : current_industry_index - 1;
+      }
+      console.log(new_index)
       Session.set("industry", industries[new_index]);
     }
   })
@@ -98,8 +110,22 @@ if (Meteor.isClient) {
 
   Template.profile.helpers({
     'user': function(){
+      console.log(this);
       return this;
+    },
+    'email': function(){
+      return this.emails[0].address;
+    },
+    'starters': function(){
+      console.log(Template.currentData())
+      return [
+        {starter: "Hi, how's it going?", email: Template.currentData().emails[0].address},
+        {starter: "Yo", email: Template.currentData().emails[0].address}
+      ]
     }
+  });
+  Template.registerHelper('sanitize',function(str){
+    return str.replace(" ", "%20")
   });
 
   Template.myprofile.helpers({
