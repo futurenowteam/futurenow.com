@@ -59,7 +59,7 @@
           </div>
         </div>
         <h2>{{selected_industry}}</h2>
-        <select>
+        <!-- <select>
           <option value="Technology and Engineering">Technology and Engineering</option>
           <option value="Arts">Arts</option>
           <option value="Health and Science">Health and Science</option>
@@ -69,12 +69,12 @@
           <option value="Education">Education</option>
           <option value="Literature">Literature</option>
           <option value="Others">Others</option>
-        </select>
+        </select> -->
         <ul class="home-grid">
           {{#each alumni}}
             <a href="{{root_url}}users/{{_id}}">
               <li class="half-space">
-                <div class="name-picture">
+                <div>
               <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="home-grid-photo" >
                 <div class="profile-name">{{first_name}} {{last_name}}</div>
               </div>
@@ -105,6 +105,7 @@
 <template name="profile">
   <div class="basic-info">
     <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="img-rounded center"  height="140" width="140">
+    <a class="btn btn-default" href="{{pathFor route='messages'}}"><i class="glyphicon glyphicon-envelope"></i></a>
     <h2>{{user.first_name}} {{user.last_name}}</h2>
     {{capitalizeString user.type true}}, {{getGradYear user.grad_year true}}
     {{#if user.industry}}
@@ -113,13 +114,32 @@
     {{/if}}
     <br> <br>
     <h4> Conversation Starters </h4>
-    <ul>
-      {{#each starters}}
-          <li><a href="mailto:{{this.email}}?subject=hi%20josh&body={{sanitize this.starter}}">{{this.starter}}</a></li>
-        {{/each}}
-    </ul>
+  </div>
+</template>
 
-
+<template name="messages">
+  <div class="main-wrapper">
+    <div class="grid-block">
+      <div class="chevron-container chevron-container-left">
+        <div class="chevron-button">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+        </div>
+      </div>
+      <div class="chevron-container chevron-container-right">
+        <div class="chevron-button">
+          <i class="glyphicon glyphicon-chevron-right"></i>
+        </div>
+      </div>
+      <h2>Conversation Starters</h2>
+      <ul class="home-grid">
+        Send {{user.first_name}} a message!
+          <li><div class="profile-name">{{starter}}</div>
+          </li>
+      </ul>
+      <a class="btn btn-default" href="mailto:{{user_email}}?subject=hi%20josh&body={{sanitize starter}}"><i class="glyphicon glyphicon-envelope"></i> SEND</a>
+      <div class="clear-fix">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -129,7 +149,6 @@
           <div class="btn-group btn-group-justified" role="group" aria-label="...">
             {{#if currentUser}}
               <a class="btn btn-default" href="{{pathFor route='home'}}"><i class="glyphicon glyphicon-home"></i></a>
-              <a class="btn btn-default" href="#"><i class="glyphicon glyphicon-envelope"></i></a>
               <a class="btn btn-default" href="{{pathFor route='myprofile'}}"><i class="glyphicon glyphicon-user"></i></a>
               <a class="btn btn-default logout" href="#"><i class="glyphicon glyphicon-log-out"></i></a>
             {{else}}

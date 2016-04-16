@@ -5,6 +5,15 @@ Router.route('/', {
 });
 Router.route('/home');
 Router.route('/myprofile');
+Router.route('messages', {
+  path: '/users/:_id/messages',
+  data: function() {
+    var user = Meteor.users.findOne({ _id: this.params._id});
+    if (typeof user !== "undefined") {
+      return user;
+    }
+  }
+});
 Router.route('profile', {
   path: '/users/:_id',
   data: function() {
@@ -101,20 +110,55 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.messages.helpers({
+    'user': function(){
+      return this;
+    },
+    'user_email': function(){
+      return this.emails[0].address;
+    },
+    'starter': function(){
+      return Session.get('starter');
+    }
+  });
+
+  Template.messages.onCreated(function () {
+    var starter = "Hi, how's it going?";
+    Session.set('starter', starter);
+  });
+//
+  Template.messages.events({
+    "click .chevron-container": function (event) {
+      var $chevron = $(event.target);
+      var direction = $chevron.hasClass("chevron-container-left") ? "left" : "right";
+      var starters = [
+        "Hi, how's it going?",
+        "Yo",
+        "hey there"
+      ];
+
+      var current_starter = Session.get("starter");
+      var current_starter_index = starters.indexOf(current_starter);
+      var array_length = starters.length;
+      var new_index;
+
+      if (current_starter_index + 1 >= array_length && direction === "right") {
+        new_index = 0;
+      } else if (current_starter_index == 0 && direction === "left") {
+        new_index = starters.length - 1;
+      } else {
+        new_index = direction == "right" ? current_starter_index + 1 : current_starter_index - 1;
+      }
+      Session.set("starter", starters[new_index]);
+    }
+  });
+
   Template.profile.helpers({
     'user': function(){
-      console.log(this);
       return this;
     },
     'email': function(){
       return this.emails[0].address;
-    },
-    'starters': function(){
-      console.log(Template.currentData())
-      return [
-        {starter: "Hi, how's it going?", email: Template.currentData().emails[0].address},
-        {starter: "Yo", email: Template.currentData().emails[0].address}
-      ]
     }
   });
   Template.registerHelper('sanitize',function(str){
