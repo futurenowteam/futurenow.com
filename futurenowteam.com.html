@@ -10,8 +10,11 @@
 </body>
 
 <template name="register">
-    <h2>Register</h2>
-    <form class="register">
+
+<div class="main-wrapper">
+    <h1 class="logo">FutureNow</h1>
+    <h2 class="center-text">Register</h2>
+    <form class="register center-text">
         <p>First Name: <input type="text" name="first_name"></p>
         <p>Last Name: <input type="text" name="last_name"></p>
         <p>Email: <input type="email" name="email"></p>
@@ -19,46 +22,61 @@
         <p>Account Type: <input type="radio" name="type" value="student"> Student
           <input type="radio" name="type" value="alumni"> Alumni</p>
         <p>Graduation Year: <input type="text" name="grad_year"></p>
-        <p class="industry is-hidden">Industry:
-          <input type="radio" name="industry" value="Technology and Engineering"> Technology and Engineering
-          <input type="radio" name="industry" value="Arts"> Arts
-          <input type="radio" name="industry" value="Health and Science"> Health and Science
-          <input type="radio" name="industry" value="Administration"> Administration
-          <input type="radio" name="industry" value="Politics and Communication"> Politics and Commucation
-          <input type="radio" name="industry" value="Law"> Law
-          <input type="radio" name="industry" value="Education"> Education
-          <input type="radio" name="industry" value="Literature"> Literature
+        <p class="js-industry is-hidden">Industry:<br>
+          <input type="radio" name="industry" value="Technology and Engineering"> Technology and Engineering<br>
+          <input type="radio" name="industry" value="Arts"> Arts<br>
+          <input type="radio" name="industry" value="Health and Science"> Health and Science<br>
+          <input type="radio" name="industry" value="Administration"> Administration<br>
+          <input type="radio" name="industry" value="Politics and Communication"> Politics and Commucation<br>
+          <input type="radio" name="industry" value="Law"> Law<br>
+          <input type="radio" name="industry" value="Education"> Education<br>
+          <input type="radio" name="industry" value="Literature"> Literature<br>
+          <input type="radio" name="industry" value="Services"> Services<br>
           <input type="radio" name="industry" value="Others"> Others
+          <br>
+          Cegep: <input type="text" name="cegep"><br>
+          Cegep program: <input type="text" name="cegep_program"><br>
+          University: <input type="text" name="university"><br>
+          University program: <input type="text" name="university_program"><br>
+          Past jobs: <textarea name="past_jobs"></textarea><br>
+          Current job: <input type="text" name="job"><br>
+          Best memory at your high school: <textarea name="best_memory"></textarea><br>
+
+
         </p>
         <p><input type="submit" value="Register"></p>
     </form>
+  </div>
 </template>
 
 <template name="login">
+  <div class="main-wrapper">
+      <h1 class="logo">FutureNow</h1>
     <h2>Login</h2>
     <form class="login">
       <p>Email: <input type="email" name="email"></p>
       <p>Password: <input type="password" name="password"></p>
       <p><input type="submit" value="Login"></p>
     </form>
+  </div>
 </template>
 
 <template name="home">
-  {{#HammerTouchArea initOptions=hammerInitOptions gestureMap=templateGestures}}
-    <div class="main-wrapper">
-      {{#if currentUser}}
-      <div class="grid-block">
-        <div class="chevron-container chevron-container-left">
-          <div class="chevron-button">
-            <i class="glyphicon glyphicon-chevron-left"></i>
-          </div>
+  <div class="main-wrapper">
+    {{#if currentUser}}
+    <div class="grid-block">
+      <div class="chevron-container chevron-container-left">
+        <div class="chevron-button">
+          <i class="glyphicon glyphicon-chevron-left"></i>
         </div>
-        <div class="chevron-container chevron-container-right">
-          <div class="chevron-button">
-            <i class="glyphicon glyphicon-chevron-right"></i>
-          </div>
+      </div>
+      <div class="chevron-container chevron-container-right">
+        <div class="chevron-button">
+          <i class="glyphicon glyphicon-chevron-right"></i>
         </div>
-        <h2>{{selected_industry}}</h2>
+      </div>
+
+      <h2>{{selected_industry}}</h2>
         <!-- <select>
           <option value="Technology and Engineering">Technology and Engineering</option>
           <option value="Arts">Arts</option>
@@ -70,28 +88,26 @@
           <option value="Literature">Literature</option>
           <option value="Others">Others</option>
         </select> -->
-        <ul class="home-grid">
-          {{#each alumni}}
-            <a href="{{root_url}}users/{{_id}}">
-              <li class="half-space">
-                <div>
-              <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="home-grid-photo" >
+      <ul class="home-grid">
+        {{#each alumni}}
+          <a href="{{root_url}}users/{{_id}}">
+            <li class="half-space">
+              <div class="name-picture">
+                <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="home-grid-photo" >
                 <div class="profile-name">{{first_name}} {{last_name}}</div>
               </div>
-              </li>
-            </a>
-          {{/each}}
-        </ul>
-        <div class="clear-fix">
-        </div>
-      </div>
-      {{/if}}
+            </li>
+          </a>
+        {{/each}}
+      </ul>
+      <div class="clear-fix"></div>
     </div>
-  {{/HammerTouchArea}}
+    {{/if}}
+  </div>
 </template>
 
 <template name="myprofile">
-  <div class="basic-info">
+  <div class="center-text">
       <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="img-rounded center"  height="140" width="140">
     <h2>{{current_user.first_name}} {{current_user.last_name}}</h2>
     {{capitalizeString current_user.type true}}, {{getGradYear current_user.grad_year true}}
@@ -103,7 +119,7 @@
 </template>
 
 <template name="profile">
-  <div class="basic-info">
+  <div class="center-text">
     <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="img-rounded center"  height="140" width="140">
     <a class="btn btn-default" href="{{pathFor route='messages'}}"><i class="glyphicon glyphicon-envelope"></i></a>
     <h2>{{user.first_name}} {{user.last_name}}</h2>
@@ -112,6 +128,37 @@
       <br>
       Industry: {{user.industry}}
     {{/if}}
+
+    {{#if user.cegep}}
+      <br>
+      Cegep: {{user.cegep}}
+    {{/if}}
+    {{#if user.cegep_program}}
+      <br>
+      Cegep program: {{user.cegep_program}}
+    {{/if}}
+    {{#if user.university}}
+      <br>
+      University: {{user.university}}
+    {{/if}}
+    {{#if user.university_program}}
+      <br>
+      University program: {{user.university_program}}
+    {{/if}}
+    {{#if user.job}}
+      <br>
+      Current job: {{user.job}}
+    {{/if}}
+    {{#if user.past_jobs}}
+      <br>
+      Past jobs: {{user.past_jobs}}
+    {{/if}}
+    {{#if user.best_memory}}
+      <br>
+      Best memory at your high school: {{user.best_memory}}
+    {{/if}}
+    <br>
+    <a href="http://www.psnm.qc.ca/" target="_blank" class="donate"> donate here </a>
     <br> <br>
     <h4> Conversation Starters </h4>
   </div>

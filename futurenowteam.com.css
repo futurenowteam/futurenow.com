@@ -8,6 +8,30 @@
   line-height: 50px;
   padding: 0;
 }
+h1.logo {
+  text-align: center;
+  display: block;
+}
+
+.logo {
+  background: url("/logo.png") no-repeat center center;
+  background-size: 200px 200px;
+  text-indent: -99999px;
+  width: 200px;
+  height: 200px;
+  display: block;
+  width: 100%;
+}
+
+/*CSS for serving the retina image to devices with a high "device-pixel-ratio":*/
+@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
+  .logo {
+    background: url("/logo@2x.png") no-repeat center center;
+    background-size: 200px 200px;
+  }
+}
+
+
 body {
   background-color: #A5D6CD;
 }
@@ -19,7 +43,7 @@ body {
 .clear-fix {
   clear: both;
 }
-.basic-info {
+.center-text {
   text-align: center;
 }
 .home-grid {
@@ -81,4 +105,10 @@ body {
 
 .is-hidden {
   display: none;
+}
+
+.donate {
+  position: absolute;
+  right: 4rem;
+  bottom: 7rem;
 }
