@@ -46,8 +46,11 @@ if (Meteor.isClient) {
         type: type,
         grad_year: grad_year,
         industry: industry,
+      }, function(error){
+        console.log(error);
+        if ( !error ) return Router.go('home');
+        alert(error.reason || error.error)
       });
-      Router.go('home');
     }
   });
   Template.home.events({
@@ -188,6 +191,22 @@ if (Meteor.isServer) {
 
   Meteor.startup(function () {
     Accounts.onCreateUser(function(options, user) {
+      console.log(options)
+      if (!options.grad_year){
+        throw new Meteor.Error("Please enter a graduation year")
+      }
+      if (!options.first_name){
+        throw new Meteor.Error("Please enter a first name")
+      }
+      if (!options.last_name){
+        throw new Meteor.Error("Please enter a last name")
+      }
+      if (!options.type){
+        throw new Meteor.Error("Please choose either student or alumni")
+      }
+      if ( options.type == "alumni" && !options.industry){
+        throw new Meteor.Error("Please choose an industry")
+
       user.first_name = options.first_name;
       user.last_name = options.last_name;
       user.type = options.type;
