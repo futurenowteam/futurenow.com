@@ -59,51 +59,49 @@
 </template>
 
 <template name="home">
-  {{#HammerTouchArea initOptions=hammerInitOptions gestureMap=templateGestures}}
-    <div class="main-wrapper">
-      {{#if currentUser}}
-      <div class="grid-block">
-        <div class="chevron-container chevron-container-left">
-          <div class="chevron-button">
-            <i class="glyphicon glyphicon-chevron-left"></i>
-          </div>
-        </div>
-        <div class="chevron-container chevron-container-right">
-          <div class="chevron-button">
-            <i class="glyphicon glyphicon-chevron-right"></i>
-          </div>
-        </div>
-        <h2>{{selected_industry}}</h2>
-        <select>
-          <option value="Technology and Engineering">Technology and Engineering</option>
-          <option value="Arts">Arts</option>
-          <option value="Health and Science">Health and Science</option>
-          <option value="Administration">Administration</option>
-          <option value="Politics and Communication">Politics and Communication</option>
-          <option value="Law">Law</option>
-          <option value="Education">Education</option>
-          <option value="Literature">Literature</option>
-          <option value="Services">Services</option>
-          <option value="Others">Others</option>
-        </select>
-        <ul class="home-grid">
-          {{#each alumni}}
-            <a href="{{root_url}}users/{{_id}}">
-              <li class="half-space">
-                <div class="name-picture">
-              <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="home-grid-photo" >
-                <div class="profile-name">{{first_name}} {{last_name}}</div>
-              </div>
-              </li>
-            </a>
-          {{/each}}
-        </ul>
-        <div class="clear-fix">
+  <div class="main-wrapper">
+    {{#if currentUser}}
+    <div class="grid-block">
+      <div class="chevron-container chevron-container-left">
+        <div class="chevron-button">
+          <i class="glyphicon glyphicon-chevron-left"></i>
         </div>
       </div>
-      {{/if}}
+      <div class="chevron-container chevron-container-right">
+        <div class="chevron-button">
+          <i class="glyphicon glyphicon-chevron-right"></i>
+        </div>
+      </div>
+      <h2>{{selected_industry}}</h2>
+      <select>
+        <option value="Technology and Engineering">Technology and Engineering</option>
+        <option value="Arts">Arts</option>
+        <option value="Health and Science">Health and Science</option>
+        <option value="Administration">Administration</option>
+        <option value="Politics and Communication">Politics and Communication</option>
+        <option value="Law">Law</option>
+        <option value="Education">Education</option>
+        <option value="Literature">Literature</option>
+        <option value="Services">Services</option>
+        <option value="Others">Others</option>
+      </select>
+      <ul class="home-grid">
+        {{#each alumni}}
+          <a href="{{root_url}}users/{{_id}}">
+            <li class="half-space">
+              <div class="name-picture">
+            <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="home-grid-photo" >
+              <div class="profile-name">{{first_name}} {{last_name}}</div>
+            </div>
+            </li>
+          </a>
+        {{/each}}
+      </ul>
+      <div class="clear-fix">
+      </div>
     </div>
-  {{/HammerTouchArea}}
+    {{/if}}
+  </div>
 </template>
 
 <template name="myprofile">

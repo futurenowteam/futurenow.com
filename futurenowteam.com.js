@@ -177,6 +177,10 @@ if (Meteor.isClient) {
       event.preventDefault();
       Meteor.logout();
       Router.go('login');
+    },
+    "click .btn": function(event){
+      $(".btn").removeClass("active");
+      $(event.target).addClass("active");
     }
   });
 
@@ -213,7 +217,7 @@ if (Meteor.isServer) {
       }
       if ( options.type == "alumni" && !options.industry){
         throw new Meteor.Error("Please choose an industry")
-
+      }
       user.first_name = options.first_name;
       user.last_name = options.last_name;
       user.type = options.type;
