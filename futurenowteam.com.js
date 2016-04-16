@@ -5,6 +5,11 @@ Router.route('/', {
 });
 Router.route('/home');
 Router.route('/myprofile');
+// Router.route('back', {
+//   data: function() {
+//     history.back();
+//   }
+// });
 Router.route('messages', {
   path: '/users/:_id/messages',
   data: function() {
@@ -144,6 +149,9 @@ if (Meteor.isClient) {
   });
 //
   Template.messages.events({
+    "click .back-button": function(e) {
+      history.back();
+    },
     "click .chevron-container": function (event) {
       var $chevron = $(event.target);
       var direction = $chevron.hasClass("chevron-container-left") ? "left" : "right";
@@ -166,6 +174,12 @@ if (Meteor.isClient) {
         new_index = direction == "right" ? current_starter_index + 1 : current_starter_index - 1;
       }
       Session.set("starter", starters[new_index]);
+    }
+  });
+
+  Template.profile.events({
+    "click .back-button": function(e) {
+      history.back();
     }
   });
 

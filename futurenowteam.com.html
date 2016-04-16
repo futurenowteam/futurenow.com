@@ -1,7 +1,8 @@
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/futurenow_icon.png">
   <title>futurenowteam.com</title>
 </head>
 
@@ -121,7 +122,6 @@
 <template name="profile">
   <div class="center-text">
     <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="img-rounded center"  height="140" width="140">
-    <a class="btn btn-default" href="{{pathFor route='messages'}}"><i class="glyphicon glyphicon-envelope"></i></a>
     <h2>{{user.first_name}} {{user.last_name}}</h2>
     {{capitalizeString user.type true}}, {{getGradYear user.grad_year true}}
     {{#if user.industry}}
@@ -158,9 +158,11 @@
       Best memory at your high school: {{user.best_memory}}
     {{/if}}
     <br>
-    <a href="http://www.psnm.qc.ca/" target="_blank" class="donate"> donate here </a>
+    <!-- <a href="http://www.psnm.qc.ca/" target="_blank" class="donate"> donate here </a> -->
+    <a class="btn btn-default donate" href="https://www.canadahelps.org/fr/organismesdebienfaisance/la-fondation-du-pensionnat-du-saint-nom-de-marie/" target="_blank"><i class="glyphicon glyphicon-heart"></i> Donate to your school here</a>
     <br> <br>
-    <h4> Conversation Starters </h4>
+    <a class="btn btn-default" href="{{pathFor route='messages'}}"><i class="glyphicon glyphicon-envelope"></i> Send {{user.first_name}} a message</a>
+    <a class="btn btn-default back-button" href="#"><i class="glyphicon glyphicon-arrow-left"></i></a>
   </div>
 </template>
 
@@ -178,12 +180,18 @@
         </div>
       </div>
       <h2>Conversation Starters</h2>
+      <br>
       <ul class="home-grid">
         Send {{user.first_name}} a message!
-          <li><div class="profile-name">{{starter}}</div>
+        <br>
+          <li>
+            <div class="conversation-starter-container">
+              <div class="conversation-starter">{{starter}}</div>
+            </div>
           </li>
       </ul>
-      <a class="btn btn-default" href="mailto:{{user_email}}?subject=hi%20josh&body={{sanitize starter}}"><i class="glyphicon glyphicon-envelope"></i> SEND</a>
+      <a class="btn btn-default" href="mailto:{{user_email}}?subject=You%20Have%20Received%20a%20Message%20From%20Future%20Now&body={{sanitize starter}}"><i class="glyphicon glyphicon-envelope"></i> SEND</a>
+      <a class="btn btn-default back-button" href="#"><i class="glyphicon glyphicon-arrow-left"></i></a>
       <div class="clear-fix">
       </div>
     </div>
