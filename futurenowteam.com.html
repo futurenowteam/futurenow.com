@@ -10,8 +10,8 @@
 </body>
 
 <template name="register">
-    <h2>Register</h2>
-    <form class="register">
+    <h2 class="center-text">Register</h2>
+    <form class="register center-text">
         <p>First Name: <input type="text" name="first_name"></p>
         <p>Last Name: <input type="text" name="last_name"></p>
         <p>Email: <input type="email" name="email"></p>
@@ -19,16 +19,24 @@
         <p>Account Type: <input type="radio" name="type" value="student"> Student
           <input type="radio" name="type" value="alumni"> Alumni</p>
         <p>Graduation Year: <input type="text" name="grad_year"></p>
-        <p class="industry is-hidden">Industry:
-          <input type="radio" name="industry" value="Technology and Engineering"> Technology and Engineering
-          <input type="radio" name="industry" value="Arts"> Arts
-          <input type="radio" name="industry" value="Health and Science"> Health and Science
-          <input type="radio" name="industry" value="Administration"> Administration
-          <input type="radio" name="industry" value="Politics and Communication"> Politics and Commucation
-          <input type="radio" name="industry" value="Law"> Law
-          <input type="radio" name="industry" value="Education"> Education
-          <input type="radio" name="industry" value="Literature"> Literature
+        <p class="js-industry is-hidden">Industry:<br>
+          <input type="radio" name="industry" value="Technology and Engineering"> Technology and Engineering<br>
+          <input type="radio" name="industry" value="Arts"> Arts<br>
+          <input type="radio" name="industry" value="Health and Science"> Health and Science<br>
+          <input type="radio" name="industry" value="Administration"> Administration<br>
+          <input type="radio" name="industry" value="Politics and Communication"> Politics and Commucation<br>
+          <input type="radio" name="industry" value="Law"> Law<br>
+          <input type="radio" name="industry" value="Education"> Education<br>
+          <input type="radio" name="industry" value="Literature"> Literature<br>
+          <input type="radio" name="industry" value="Services"> Services<br>
           <input type="radio" name="industry" value="Others"> Others
+        <br>
+
+        Cegep: <input type="text" name="cegep"><br>
+        Cegep program: <input type="text" name="cegep_program"><br>
+        University: <input type="text" name="university"><br>
+        University program: <input type="text" name="university_program"><br>
+
         </p>
         <p><input type="submit" value="Register"></p>
     </form>
@@ -68,6 +76,7 @@
           <option value="Law">Law</option>
           <option value="Education">Education</option>
           <option value="Literature">Literature</option>
+          <option value="Services">Services</option>
           <option value="Others">Others</option>
         </select>
         <ul class="home-grid">
@@ -91,7 +100,7 @@
 </template>
 
 <template name="myprofile">
-  <div class="basic-info">
+  <div class="center-text">
       <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="img-rounded center"  height="140" width="140">
     <h2>{{current_user.first_name}} {{current_user.last_name}}</h2>
     {{capitalizeString current_user.type true}}, {{getGradYear current_user.grad_year true}}
@@ -103,7 +112,7 @@
 </template>
 
 <template name="profile">
-  <div class="basic-info">
+  <div class="center-text">
     <img src="https://www.xing.com/assets/frontend_minified/img/users/nobody_f.1024x1024.jpg"  class="img-rounded center"  height="140" width="140">
     <h2>{{user.first_name}} {{user.last_name}}</h2>
     {{capitalizeString user.type true}}, {{getGradYear user.grad_year true}}
@@ -111,15 +120,8 @@
       <br>
       Industry: {{user.industry}}
     {{/if}}
-    <br> <br>
-    <h4> Conversation Starters </h4>
-    <ul>
-      {{#each starters}}
-          <li><a href="mailto:{{this.email}}?subject=hi%20josh&body={{sanitize this.starter}}">{{this.starter}}</a></li>
-        {{/each}}
-    </ul>
-
-
+    <br>
+    <a href="http://www.psnm.qc.ca/" target="_blank" class="donate"> donate here </a>
   </div>
 </template>
 
