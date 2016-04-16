@@ -22,9 +22,9 @@ if (Meteor.isClient) {
   Template.register.events({
     'click input[name="type"]': function (event) {
       if (event.target.value == "alumni") {
-        $('.industry').removeClass('is-hidden');
+        $('.js-industry').removeClass('is-hidden');
       } else {
-        $('.industry').addClass('is-hidden');
+        $('.js-industry').addClass('is-hidden');
       }
     },
     'submit form': function (event) {
@@ -36,6 +36,10 @@ if (Meteor.isClient) {
       var type = $('[name=type]:checked').val();
       var grad_year = $('[name=grad_year]').val();
       var industry = $('[name=industry]:checked').val();
+      var cegep = $('[name=cegep]').val();
+      var cegep_program = $('[name=cegep_program]').val();
+      var university = $('[name=university]').val();
+      var university_program = $('[name=university_program]').val();
 
       Accounts.createUser({
         first_name: first_name,
@@ -45,6 +49,10 @@ if (Meteor.isClient) {
         type: type,
         grad_year: grad_year,
         industry: industry,
+        cegep: cegep,
+        cegep_program: cegep_program,
+        university: university,
+        university_program: university_program
       });
       Router.go('home');
     }
@@ -57,10 +65,11 @@ if (Meteor.isClient) {
     "click .chevron-container": function (event) {
       var $chevron_container = $(event.target);
       var direction = $chevron_container.hasClass("chevron-container-left") ? "left" : "right";
-      var industries = ['Technology and Engineering','Arts','Health and Science','Administration','Politics and Communication','Law','Education','Literature','Others' ];
+      var industries = ['Technology and Engineering','Arts','Health and Science','Administration','Politics and Communication','Law','Education','Literature','Services','Others'];
       var current_industry = Session.get("industry");
       var current_industry_index = industries.indexOf(current_industry);
       var new_index = direction == "right" ? current_industry_index + 1 : current_industry_index - 1;
+      $('select').val(industries[new_index]);
       Session.set("industry", industries[new_index]);
     }
   })
@@ -166,6 +175,10 @@ if (Meteor.isServer) {
       user.is_admin = false;
       user.grad_year = options.grad_year;
       user.industry = options.industry;
+      user.cegep = options.cegep;
+      user.cegep_program = options.cegep_program;
+      user.university = options.university;
+      user.university_program = options.university_program;
       return user;
     });
   });
