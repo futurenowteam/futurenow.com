@@ -23,9 +23,9 @@ if (Meteor.isClient) {
   Template.register.events({
     'click input[name="type"]': function (event) {
       if (event.target.value == "alumni") {
-        $('.industry').removeClass('is-hidden');
+        $('.js-industry').removeClass('is-hidden');
       } else {
-        $('.industry').addClass('is-hidden');
+        $('.js-industry').addClass('is-hidden');
       }
     },
     'submit form': function (event) {
@@ -37,6 +37,10 @@ if (Meteor.isClient) {
       var type = $('[name=type]:checked').val();
       var grad_year = $('[name=grad_year]').val();
       var industry = $('[name=industry]:checked').val();
+      var cegep = $('[name=cegep]').val();
+      var cegep_program = $('[name=cegep_program]').val();
+      var university = $('[name=university]').val();
+      var university_program = $('[name=university_program]').val();
 
       Accounts.createUser({
         first_name: first_name,
@@ -46,8 +50,15 @@ if (Meteor.isClient) {
         type: type,
         grad_year: grad_year,
         industry: industry,
+        cegep: cegep,
+        cegep_program: cegep_program,
+        university: university,
+        university_program: university_program
+      }, function(error){
+        console.log(error);
+        if ( !error ) return Router.go('home');
+        alert(error.reason || error.error)
       });
-      Router.go('home');
     }
   });
   Template.home.events({
@@ -58,7 +69,7 @@ if (Meteor.isClient) {
     "click .chevron-container": function (event) {
       var $chevron_container = $(event.target);
       var direction = $chevron_container.hasClass("chevron-container-left") ? "left" : "right";
-      var industries = ['Technology and Engineering','Arts','Health and Science','Administration','Politics and Communication','Law','Education','Literature','Others' ];
+      var industries = ['Technology and Engineering','Arts','Health and Science','Administration','Politics and Communication','Law','Education','Literature','Services','Others'];
       var current_industry = Session.get("industry");
       var current_industry_index = industries.indexOf(current_industry);
       var industries_number = industries.length;
@@ -74,7 +85,6 @@ if (Meteor.isClient) {
         new_index = direction == "right" ? current_industry_index + 1 : current_industry_index - 1;
       }
       console.log(new_index)
-
       Session.set("industry", industries[new_index]);
     }
   })
@@ -188,12 +198,32 @@ if (Meteor.isServer) {
 
   Meteor.startup(function () {
     Accounts.onCreateUser(function(options, user) {
+      console.log(options)
+      if (!options.grad_year){
+        throw new Meteor.Error("Please enter a graduation year")
+      }
+      if (!options.first_name){
+        throw new Meteor.Error("Please enter a first name")
+      }
+      if (!options.last_name){
+        throw new Meteor.Error("Please enter a last name")
+      }
+      if (!options.type){
+        throw new Meteor.Error("Please choose either student or alumni")
+      }
+      if ( options.type == "alumni" && !options.industry){
+        throw new Meteor.Error("Please choose an industry")
+
       user.first_name = options.first_name;
       user.last_name = options.last_name;
       user.type = options.type;
       user.is_admin = false;
       user.grad_year = options.grad_year;
       user.industry = options.industry;
+      user.cegep = options.cegep;
+      user.cegep_program = options.cegep_program;
+      user.university = options.university;
+      user.university_program = options.university_program;
       return user;
     });
   });

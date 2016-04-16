@@ -43,7 +43,7 @@ body {
 .clear-fix {
   clear: both;
 }
-.basic-info {
+.center-text {
   text-align: center;
 }
 .home-grid {
@@ -105,4 +105,10 @@ body {
 
 .is-hidden {
   display: none;
+}
+
+.donate {
+  position: absolute;
+  right: 4rem;
+  bottom: 7rem;
 }
